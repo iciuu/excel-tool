@@ -4,9 +4,10 @@ import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.excel.EasyExcel;
 import com.ng.excel.exceltool.dto.WeiboExcel;
+import com.ng.excel.exceltool.model.User;
 import com.ng.excel.exceltool.repository.WeiboRepository;
-import com.sun.org.apache.xml.internal.serializer.OutputPropertiesFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -161,4 +162,14 @@ public class EasyExcelService {
 
         }
     }*/
+
+
+    public void outputStreamDownload(HttpServletResponse response) {
+        ArrayList<User> dataList = new ArrayList<>();
+        try {
+            EasyExcel.write(response.getOutputStream(),User.class).sheet("ss").doWrite(dataList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
